@@ -1,0 +1,4 @@
+
+struct cetromino {
+    int color
+}
