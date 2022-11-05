@@ -8,6 +8,7 @@ void printgrid(char _2darray[ROW][COL]);
 
 int main(void)
 {
+    // Initializing the grid.
     char grid[ROW][COL];
     for (int y = 0; y < ROW; y++) {
         for (int x = 0; x < COL; x++) {
@@ -21,6 +22,7 @@ int main(void)
 
 }
 
+// Print the grid and return to top-left corner of it.
 void printgrid(char _2darray[ROW][COL])
 {
     char element;
@@ -31,7 +33,7 @@ void printgrid(char _2darray[ROW][COL])
         }
         puts("");
     }
-
-    printf("\e[22");
+    // Move the cursor ROW cells up. It's an ANSI escape sequence. 
+    printf("\e[%dA", ROW);
 }
 
