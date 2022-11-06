@@ -18,12 +18,19 @@ int main(void)
         }
     }
 
-
-
     printgrid(grid);
 
 
 
+}
+
+int isoccupied(char emptychar, int coord[2], char grid[ROW][COL])
+{
+    int x = coord[0], y = coord[1];
+    if (grid[y][x] == emptychar) {
+        return 0;
+    }
+    return 1;
 }
 
 // Print the grid and return to top-left corner of it.

@@ -14,6 +14,8 @@ typedef struct Cetrominobase {
 } cetrominobase;
 
 
+
+
 cetrominobase initcetromino(char codename)
 {
     cetrominobase cetromino;
@@ -22,31 +24,72 @@ cetrominobase initcetromino(char codename)
         case 'I':
             cetromino.color = CYAN;
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {6, 1}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }
             cetromino.codename = 'I';
             break;
         case 'J':
             cetromino.color = BLUE;
             int coords[4][2] = {{3, 0}, {3, 1}, {4, 1}, {4, 2}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
             cetromino.codename = 'J';
             break;
-        
-
-        for (int i = 0; i < 4; ++i) {
-            cetromino.coords[i][0] = coords[i][0];
-            cetromino.coords[i][1] = coords[i][1];
-        }
+        case 'L':
+            cetromino.color = ORANGE;
+            int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {5, 0}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
+            cetromino.codename = 'L';
+            break;
+        case 'O':
+            cetromino.color = YELLOW;
+            int coords[4][2] = {{4, 0}, {4, 1}, {5, 0}, {5, 1}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
+            cetromino.codename = 'O';
+            break;
+        case 'S':
+            cetromino.color = GREEN;
+            int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 0}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
+            cetromino.codename = 'S';
+            break;       
+        case 'T':
+            cetromino.color = MAGENTA;
+            int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 1}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
+            cetromino.codename = 'T';
+            break;
+        case 'Z':
+            cetromino.color = GREEN;
+            int coords[4][2] = {{3, 0}, {4, 0}, {4, 1}, {5, 1}};
+            for (int i = 0; i < 4; ++i) {
+                cetromino.coords[i][0] = coords[i][0];
+                cetromino.coords[i][1] = coords[i][1];
+            }            
+            cetromino.codename = 'Z';
+            break;
     }
+    return cetromino;
 }
 
 
-int isoccupied(char emptychar, int coord[2], char grid[20][10])
-{
-    int x = coord[0], y = coord[1];
-    if (grid[y][x] == emptychar) {
-        return 0;
-    }
-    return 1;
-}
+
 
 
 
