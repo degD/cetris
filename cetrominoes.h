@@ -11,6 +11,7 @@ typedef struct Cetrominobase {
     int color;
     int coords[4][2];
     char codename;
+    int rstate;
 } cetrominobase;
 
 
@@ -85,15 +86,24 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'Z';
             break;
     }
+    cetromino.rstate = 0;
     return cetromino;
 }
 
 
+int rotatecetromino(char direction, cetrominobase cetromino)
+{
+    switch (cetromino.codename)
+    {
+        case 'I':
+
+
+    }
+}
 
 
 
-
-int descendcetromino(cetrominobase cetromino)
+void descendcetromino(cetrominobase cetromino)
 {   
     int coordy;
     for (int i = 0; i < 4; i++) {
