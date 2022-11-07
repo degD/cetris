@@ -90,14 +90,58 @@ cetrominobase initcetromino(char codename)
     return cetromino;
 }
 
+// dir = 1 clockwise, -1 counter-clockwise
+float* rotatecoord(float cx, float cy, float x, float y, int dir)
+{
+    float rcoord[2];
 
-int rotatecetromino(char direction, cetrominobase cetromino)
+    x = x - cx;
+    y = y - cy;
+
+    if (dir == 1) {
+        rcoord[0] = y;
+        rcoord[1] = -x;
+    }
+    if (dir == -1) {
+        rcoord[0] = -y;
+        rcoord[1] = x;
+    }
+
+    rcoord[0] += cx;
+    rcoord[1] += cy;
+
+    return rcoord;
+}
+
+// dir = 1 clockwise, -1 counter-clockwise
+int rotatecetromino(int direction, cetrominobase cetromino)
 {
     switch (cetromino.codename)
     {
         case 'I':
+            float centerx = ((float)cetromino.coords[1][0] + (float)cetromino.coords[2][0]) / 2;
+            float centery = ((float)cetromino.coords[1][1] + (float)cetromino.coords[2][1]) / 2;
 
+            for (int i = 0; i < 4; i++)
+            {
+                float x = cetromino.coords[i][0];
+                float y = cetromino.coords[i][1];
 
+                float *rcoord = rotatecoord(centerx, centery, x, y, direction);
+
+                cetromino.coords[i][0] = (int)rcoord[0];
+                cetromino.coords[i][1] = (int)rcoord[1];               
+            }
+
+            if (direction == 1);
+                cetromino.rstate += 1;
+            if (direction == -1);
+                cetromino.rstate += 3;
+            if (cetromino.rstate == 4);
+                cetromino.rstate = 0;
+            
+            break;
+        
     }
 }
 
