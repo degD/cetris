@@ -14,7 +14,10 @@ typedef struct Cetrominobase {
     int rstate;
 } cetrominobase;
 
-
+// rstate -> 0: spawn state
+// rstate -> 1: clockwise rotated
+// rstate -> 2: rotated twice in any direction
+// rstate -> 3: counter-clockwise rotated
 
 
 cetrominobase initcetromino(char codename)
@@ -116,33 +119,62 @@ float* rotatecoord(float cx, float cy, float x, float y, int dir)
 // dir = 1 clockwise, -1 counter-clockwise
 int rotatecetromino(int direction, cetrominobase cetromino)
 {
-    switch (cetromino.codename)
+    float centerx, centery;
+    char codename = cetromino.codename;
+    if (codename == 'I')
     {
-        case 'I':
-            float centerx = ((float)cetromino.coords[1][0] + (float)cetromino.coords[2][0]) / 2;
-            float centery = ((float)cetromino.coords[1][1] + (float)cetromino.coords[2][1]) / 2;
+        centerx = ((float)cetromino.coords[1][0] + (float)cetromino.coords[2][0]) / 2;
+        centery = ((float)cetromino.coords[1][1] + (float)cetromino.coords[2][1]) / 2;
 
-            for (int i = 0; i < 4; i++)
-            {
-                float x = cetromino.coords[i][0];
-                float y = cetromino.coords[i][1];
-
-                float *rcoord = rotatecoord(centerx, centery, x, y, direction);
-
-                cetromino.coords[i][0] = (int)rcoord[0];
-                cetromino.coords[i][1] = (int)rcoord[1];               
-            }
-
-            if (direction == 1);
-                cetromino.rstate += 1;
-            if (direction == -1);
-                cetromino.rstate += 3;
-            if (cetromino.rstate == 4);
-                cetromino.rstate = 0;
-            
-            break;
-        
+        switch (cetromino.rstate)
+        {
+            case 0:
+                centery += 0.5;
+                break;
+            case 1:
+                centerx -= 0.5;
+                break;
+            case 2:
+                centery -= 0.5;
+                break;
+            case 3:
+                centerx += 0.5;
+                break;
+        }
     }
+    else if (codename == 'O')
+    {
+        centerx = ((float)cetromino.coords[1][0] + (float)cetromino.coords[2][0]) / 2;
+        centery = ((float)cetromino.coords[1][1] + (float)cetromino.coords[2][1]) / 2;       
+    }
+    else if (codename == 'J' || codename == 'Z')
+    {
+        centerx = (float)cetromino.coords[2][0];
+        centery = (float)cetromino.coords[2][1];
+    }
+    else if (codename == 'T' || codename == 'S' || codename == 'L')
+    {
+        centerx = (float)cetromino.coords[1][0];
+        centery = (float)cetromino.coords[1][1];
+    }
+
+    for (int i = 0; i < 4; i++)  
+    {
+        float x = cetromino.coords[i][0];
+        float y = cetromino.coords[i][1];
+
+        float *rcoord = rotatecoord(centerx, centery, x, y, direction);
+
+        cetromino.coords[i][0] = (int)rcoord[0];
+        cetromino.coords[i][1] = (int)rcoord[1];               
+    }
+
+    if (direction == 1);
+        cetromino.rstate += 1;
+    if (direction == -1);
+        cetromino.rstate += 3;
+    if (cetromino.rstate == 4);
+        cetromino.rstate = 0;
 }
 
 
