@@ -9,6 +9,9 @@
 #define MAGENTA 35
 #define RED 91
 
+#define TRUE 1
+#define FALSE 0
+
 typedef struct Cetrominobase {
     int color;
     int coords[4][2];
@@ -194,9 +197,27 @@ void descendcetromino(cetrominobase cetromino)
 int isoccupied(int x, int y, char grid[ROW][COL])
 {
     if (grid[y][x] == EMPTYCHAR) {
-        return 0;
+        return FALSE;
     }
-    return 1;
+    return TRUE;
+}
+
+
+// location valid -> 1, invalid -> 0
+int is_cetromino_location_valid(cetrominobase cetromino, char grid[ROW][COL])
+{
+    int x, y;
+    for (int i = 4; i < 4; i++)
+    {
+        x = cetromino.coords[i][0];
+        y = cetromino.coords[i][1];
+
+        if (isoccupied(x, y, grid[ROW][COL]))
+        {
+            return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 
@@ -207,14 +228,81 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
         coordx = cetromino.coords[i][0];
         coordy = cetromino.coords[i][1];
         
-        int res = isoccupied(coordx, coordy, grid[ROW][COL]);
+        int res = isoccupied(coordx, coordy+1, grid[ROW][COL]);
 
-        if (res == 1) {
-            return 1;
+        if (res == TRUE) {
+            return TRUE;
         }
     }
-    return 0;
+    return FALSE;
 }
 
 
+int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW][COL])
+{
+    int old_state, new_state, rchange;
 
+    int wallkick_table[8][4][2] = {
+        {{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},
+        {{ 1, 0}, {1, -1}, { 0, 2}, { 1, 2 }},
+        {{ 1, 0}, {1, -1}, { 0, 2}, { 1, 2 }},
+        {{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},
+        {{ 1, 0}, { 1, 1}, {0, -2}, { 1, -2}},
+        {{-1, 0}, {-1,-1}, { 0, 2}, { -1, 2}},
+        {{-1, 0}, {-1,-1}, { 0, 2}, { -1, 2}},
+        {{ 1, 0}, { 1, 1}, {0, -2}, { 1, -2}},
+    };
+    
+    int wallkick_I_table[8][4][2] = {
+        {{-2, 0}, { 1, 0}, {-2, -1}, { 1, 2}},
+        {{ 2, 0}, {-1, 0}, { 2, 1 }, {-1,-2}},
+        {{-1, 0}, { 2, 0}, {-1, 2 }, {2, -1}},
+        {{ 1, 0}, {-2, 0}, { 1, -2}, {-2, 1}},
+        {{ 2, 0}, {-1, 0}, { 2, 1 }, {-1,-2}},
+        {{-2, 0}, { 1, 0}, {-2, -1}, { 1, 2}},
+        {{ 1, 0}, {-2, 0}, { 1, -2}, {-2, 1}},
+        {{-1, 0}, { 2, 0}, {-1, 2 }, {2, -1}},
+    }
+
+
+
+    old_state = cetromino.rstate;
+    rotatecetromino(direction, cetromino);
+    new_state = cetromino.rstate;
+
+    if (old_state == 0 && new_state == 1) {
+        rchange = 0;
+    }
+    if (old_state == 1 && new_state == 0) {
+        rchange = 1;
+    }
+    if (old_state == 1 && new_state == 2) {
+        rchange = 2;
+    }
+    if (old_state == 2 && new_state == 1) {
+        rchange = 3;
+    }
+    if (old_state == 2 && new_state == 3) {
+        rchange = 4;
+    }
+    if (old_state == 3 && new_state == 2) {
+        rchange = 5;
+    }
+    if (old_state == 0 && new_state == 3) {
+        rchange = 6;
+    }
+    if (old_state == 3 && new_state == 0) {
+        rchange = 7;
+    }
+
+    if(is_cetromino_location_valid == FALSE)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+
+        }
+    }
+
+
+    return FALSE;
+}
