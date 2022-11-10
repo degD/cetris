@@ -237,11 +237,17 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
     return FALSE;
 }
 
-// For rotations, use this instead.
+/* 
+For rotations, use this instead. It will rotate the cetromino with
+SRS. It will return a 0 if rotation somehow (basic or wallkick)
+completed successfully. And 1 if unavailable. 
+*/
 int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW][COL])
 {
     int old_state, new_state, rchange;
 
+    // Each column is a wallkick test. Adding the x, y values in the table
+    // to each of the cetromino coordinates. And tests.
     int wallkick_table[8][4][2] = {
         {{-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},
         {{ 1, 0}, {1, -1}, { 0, 2}, { 1, 2 }},
@@ -266,8 +272,14 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
 
     old_state = cetromino.rstate;
     rotatecetromino(direction, cetromino);
+    if (is_cetromino_location_valid == TRUE) {
+        return 0; // No problem! Basic rotation worked.
+    }
+
     new_state = cetromino.rstate;
 
+    // rchange means change of rotation. Like state 0->1, 0->2 etc.
+    // And each rchange corresponds to rows of rotation tables.
     if (old_state == 0 && new_state == 1) {
         rchange = 0;
     }
@@ -293,20 +305,49 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
         rchange = 7;
     }
 
-    int c = 0, xopr, yopr, cetrox, cetroy;
-    while (is_cetromino_location_valid(cetromino, grid) == FALSE)
+    // Here, testing the wallkicks. SRS consists of 5 tests.
+    // Modifying the cetrominoes by the tests. If all the tests fails,
+    // that means the cetromino is in a position with no possible rotations.
+    int xopr, yopr, cetrox, cetroy;
+    for (int c = 0; c < 4; c++)
     {
-        xopr = wallkick_table[c][rchange][0];
-        yopr = wallkick_table[c][rchange][1];
+        if (cetromino.codename == 'I') 
+        {
+            xopr = wallkick_I_table[c][rchange][0];
+            yopr = wallkick_I_table[c][rchange][1];
+        }
+        else
+        {
+            xopr = wallkick_table[c][rchange][0];
+            yopr = wallkick_table[c][rchange][1];
+        }
 
         for (int i = 0; i < 4; i++)
         {
             cetrox = cetromino.coords[i][0];
             cetroy = cetromino.coords[i][1];
             cetromino.coords[i][0] = cetrox + xopr;
-            cetromino.coords[i][1] = cetroy + yopr;
+            cetromino.coords[i][1] = cetroy - yopr;
+        }
+
+        if (is_cetromino_location_valid(cetromino, grid) == TRUE) {
+            return 0; // 0 Here means no problem.
+        }
+        else 
+        {
+            // Keep in mind that each test is applied on the basic rotation state.
+            // So reverting after each failed test.
+            for (int i = 0; i < 4; i++)
+            {
+                cetrox = cetromino.coords[i][0];
+                cetroy = cetromino.coords[i][1];
+                cetromino.coords[i][0] = cetrox - xopr;
+                cetromino.coords[i][1] = cetroy + yopr;
+            }
         }
     }
 
-    return FALSE;
+    // All the tests failed. Revert cetromino to the first state.
+    rotatecetromino(-direction, cetromino);
+    return 1;
 }
