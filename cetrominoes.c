@@ -212,7 +212,7 @@ int is_cetromino_location_valid(cetrominobase cetromino, char grid[ROW][COL])
         x = cetromino.coords[i][0];
         y = cetromino.coords[i][1];
 
-        if (isoccupied(x, y, grid[ROW][COL]))
+        if (isoccupied(x, y, grid))
         {
             return FALSE;
         }
@@ -228,7 +228,7 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
         coordx = cetromino.coords[i][0];
         coordy = cetromino.coords[i][1];
         
-        int res = isoccupied(coordx, coordy+1, grid[ROW][COL]);
+        int res = isoccupied(coordx, coordy+1, grid);
 
         if (res == TRUE) {
             return TRUE;
@@ -237,7 +237,7 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
     return FALSE;
 }
 
-
+// For rotations, use this instead.
 int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW][COL])
 {
     int old_state, new_state, rchange;
@@ -262,9 +262,7 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
         {{-2, 0}, { 1, 0}, {-2, -1}, { 1, 2}},
         {{ 1, 0}, {-2, 0}, { 1, -2}, {-2, 1}},
         {{-1, 0}, { 2, 0}, {-1, 2 }, {2, -1}},
-    }
-
-
+    };
 
     old_state = cetromino.rstate;
     rotatecetromino(direction, cetromino);
@@ -295,14 +293,20 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
         rchange = 7;
     }
 
-    if(is_cetromino_location_valid == FALSE)
+    int c = 0, xopr, yopr, cetrox, cetroy;
+    while (is_cetromino_location_valid(cetromino, grid) == FALSE)
     {
+        xopr = wallkick_table[c][rchange][0];
+        yopr = wallkick_table[c][rchange][1];
+
         for (int i = 0; i < 4; i++)
         {
-
+            cetrox = cetromino.coords[i][0];
+            cetroy = cetromino.coords[i][1];
+            cetromino.coords[i][0] = cetrox + xopr;
+            cetromino.coords[i][1] = cetroy + yopr;
         }
     }
-
 
     return FALSE;
 }
