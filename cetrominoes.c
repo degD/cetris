@@ -222,6 +222,26 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
     return FALSE;
 }
 
+
+int is_at_edge(cetrominobase cetromino, char grid[ROW][COL])
+{
+    int coordx, coordy, resl, resr;
+    for (int i = 0; i < 4; i++) {
+        coordx = cetromino.coords[i][0];
+        coordy = cetromino.coords[i][1];
+        
+        resl = isoccupied(coordx-1, coordy, grid); // Left edge
+        resr = isoccupied(coordx+1, coordy, grid); // Right edge
+
+        if (resl == TRUE || resr == TRUE) {
+            return TRUE;
+        }
+
+    }
+    return FALSE;
+}
+
+
 /* 
 For rotations, use this instead. It will rotate the cetromino with
 SRS. It will return a 0 if rotation somehow (basic or wallkick)
