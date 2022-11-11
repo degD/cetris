@@ -1,20 +1,9 @@
 
 #include "gamedefinitions.h"
+#include "cetrominobase.h"
 
 #define TRUE 1
 #define FALSE 0
-
-typedef struct Cetrominobase {
-    int coords[4][2];
-    char codename;
-    int rstate;
-} cetrominobase;
-
-// rstate -> 0: spawn state
-// rstate -> 1: clockwise rotated
-// rstate -> 2: rotated twice in any direction
-// rstate -> 3: counter-clockwise rotated
-
 
 cetrominobase initcetromino(char codename)
 {
