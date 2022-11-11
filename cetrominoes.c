@@ -1,14 +1,6 @@
 
 #include "gamedefinitions.h"
 
-#define CYAN 96
-#define BLUE 34
-#define ORANGE 208
-#define YELLOW 93
-#define GREEN 92
-#define MAGENTA 35
-#define RED 91
-
 #define TRUE 1
 #define FALSE 0
 
@@ -31,7 +23,6 @@ cetrominobase initcetromino(char codename)
     switch (codename)
     {
         case 'I':
-            cetromino.color = CYAN;
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {6, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -40,7 +31,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'I';
             break;
         case 'J':
-            cetromino.color = BLUE;
             int coords[4][2] = {{3, 0}, {3, 1}, {4, 1}, {4, 2}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -49,7 +39,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'J';
             break;
         case 'L':
-            cetromino.color = ORANGE;
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {5, 0}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -58,7 +47,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'L';
             break;
         case 'O':
-            cetromino.color = YELLOW;
             int coords[4][2] = {{4, 0}, {4, 1}, {5, 0}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -67,7 +55,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'O';
             break;
         case 'S':
-            cetromino.color = GREEN;
             int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 0}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -76,7 +63,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'S';
             break;       
         case 'T':
-            cetromino.color = MAGENTA;
             int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -85,7 +71,6 @@ cetrominobase initcetromino(char codename)
             cetromino.codename = 'T';
             break;
         case 'Z':
-            cetromino.color = GREEN;
             int coords[4][2] = {{3, 0}, {4, 0}, {4, 1}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -350,4 +335,16 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
     // All the tests failed. Revert cetromino to the first state.
     rotatecetromino(-direction, cetromino);
     return 1;
+}
+
+
+void add_to_grid(cetrominobase cetromino, int grid[ROW][COL])
+{
+    int x, y;
+    for (int i = 0; i < 4; i++)
+    {
+        x = cetromino.coords[i][0];
+        y = cetromino.coords[i][1];
+        grid[y][x] = cetromino.codename;
+    }
 }

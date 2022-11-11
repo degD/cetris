@@ -10,7 +10,7 @@
 
 int main(void)
 {
-
+    puts("\e[41mTEST\e[0m");
 
 
 
