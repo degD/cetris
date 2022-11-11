@@ -5,7 +5,6 @@
 #define FALSE 0
 
 typedef struct Cetrominobase {
-    int color;
     int coords[4][2];
     char codename;
     int rstate;
