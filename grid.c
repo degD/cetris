@@ -1,4 +1,6 @@
 
+#include <stdio.h>
+
 #include "gamedefinitions.h"
 
 #define CYAN 106
