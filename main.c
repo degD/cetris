@@ -1,16 +1,13 @@
 
-#include <stdio.h>
-#include "cetrominoes.h"
-
-#define ROW 22
-#define COL 10
-#define EMPTYCHAR '.'
-
-
+#include "cetromino_functions.h"
+#include "grid.h"
+#include "gamedefinitions.h"
 
 int main(void)
 {
-    puts("\e[41mTEST\e[0m");
+    int grid[ROW][COL];
+
+    ini
 
 
 
