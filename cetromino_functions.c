@@ -5,12 +5,15 @@
 #define TRUE 1
 #define FALSE 0
 
+
+
 cetrominobase initcetromino(char codename)
 {
     cetrominobase cetromino;
     switch (codename)
     {
         case 'I':
+        {
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {6, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -18,7 +21,9 @@ cetrominobase initcetromino(char codename)
             }
             cetromino.codename = 'I';
             break;
+        }
         case 'J':
+        {
             int coords[4][2] = {{3, 0}, {3, 1}, {4, 1}, {4, 2}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -26,7 +31,9 @@ cetrominobase initcetromino(char codename)
             }            
             cetromino.codename = 'J';
             break;
+        }
         case 'L':
+        {
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {5, 0}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -34,7 +41,9 @@ cetrominobase initcetromino(char codename)
             }            
             cetromino.codename = 'L';
             break;
+        }
         case 'O':
+        {
             int coords[4][2] = {{4, 0}, {4, 1}, {5, 0}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -42,15 +51,19 @@ cetrominobase initcetromino(char codename)
             }            
             cetromino.codename = 'O';
             break;
+        }
         case 'S':
+        {
             int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 0}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
                 cetromino.coords[i][1] = coords[i][1];
             }            
             cetromino.codename = 'S';
-            break;       
+            break;  
+        }     
         case 'T':
+        {
             int coords[4][2] = {{3, 1}, {4, 1}, {4, 0}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -58,7 +71,9 @@ cetrominobase initcetromino(char codename)
             }            
             cetromino.codename = 'T';
             break;
+        }
         case 'Z':
+        {
             int coords[4][2] = {{3, 0}, {4, 0}, {4, 1}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -66,32 +81,31 @@ cetrominobase initcetromino(char codename)
             }            
             cetromino.codename = 'Z';
             break;
+        }
     }
     cetromino.rstate = 0;
     return cetromino;
 }
 
 // dir = 1 clockwise, -1 counter-clockwise
-float* rotatecoord(float cx, float cy, float x, float y, int dir)
+void rotatecoord(float cx, float cy, float coord[2], int dir)
 {
-    float rcoord[2];
+    int x = coord[0], y = coord[1];
 
     x = x - cx;
     y = y - cy;
 
     if (dir == 1) {
-        rcoord[0] = y;
-        rcoord[1] = -x;
+        coord[0] = y;
+        coord[1] = -x;
     }
     if (dir == -1) {
-        rcoord[0] = -y;
-        rcoord[1] = x;
+        coord[0] = -y;
+        coord[1] = x;
     }
 
-    rcoord[0] += cx;
-    rcoord[1] += cy;
-
-    return rcoord;
+    coord[0] += cx;
+    coord[1] += cy;
 }
 
 // dir = 1 clockwise, -1 counter-clockwise
@@ -141,18 +155,24 @@ void rotatecetromino(int direction, cetrominobase cetromino)
         float x = cetromino.coords[i][0];
         float y = cetromino.coords[i][1];
 
-        float *rcoord = rotatecoord(centerx, centery, x, y, direction);
+        float coord[2];
+        coord[0] = x;
+        coord[1] = y;
+        rotatecoord(centerx, centery, coord, direction);
 
-        cetromino.coords[i][0] = (int)rcoord[0];
-        cetromino.coords[i][1] = (int)rcoord[1];               
+        cetromino.coords[i][0] = (int)coord[0];
+        cetromino.coords[i][1] = (int)coord[0];               
     }
 
-    if (direction == 1);
+    if (direction == 1) {
         cetromino.rstate += 1;
-    if (direction == -1);
+    }
+    if (direction == -1) {
         cetromino.rstate += 3;
-    if (cetromino.rstate == 4);
+    }
+    if (cetromino.rstate == 4) {
         cetromino.rstate = 0;
+    }
 }
 
 
@@ -265,7 +285,7 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
 
     old_state = cetromino.rstate;
     rotatecetromino(direction, cetromino);
-    if (is_cetromino_location_valid == TRUE) {
+    if (is_cetromino_location_valid(cetromino, grid) == TRUE) {
         return 0; // No problem! Basic rotation worked.
     }
 

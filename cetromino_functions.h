@@ -7,7 +7,7 @@
 
 cetrominobase initcetromino(char codename);
 
-float* rotatecoord(float cx, float cy, float x, float y, int dir);
+void rotatecoord(float cx, float cy, float coord, int dir);
 
 void rotatecetromino(int direction, cetrominobase cetromino);
 

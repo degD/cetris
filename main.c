@@ -5,12 +5,13 @@
 
 int main(void)
 {
-    int grid[ROW][COL];
+    char garid[ROW][COL];
 
-    ini
+    initgrid(garid);
 
+    printgrid(garid);
 
-
+    return 0;
 }
 
 

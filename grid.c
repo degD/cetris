@@ -15,8 +15,7 @@
 
 // Assumes grid is a ROWxCOL char-array
 void initgrid(char grid[ROW][COL])
-{
-    char grid[ROW][COL];    
+{  
     for (int y = 0; y < ROW; y++) {
         for (int x = 0; x < COL; x++) {
             grid[y][x] = EMPTYCHAR;
@@ -37,7 +36,7 @@ void printgrid(char _2darray[ROW][COL])
 {
     
 
-    char element, color;
+    char element;
     for (int y = 2; y < ROW; y++) {
         for (int x = 0; x < COL; x++) {
             element = _2darray[y][x];
