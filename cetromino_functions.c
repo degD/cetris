@@ -366,7 +366,7 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
 }
 
 
-void add_to_grid(cetrominobase cetromino, int grid[ROW][COL])
+void add_to_grid(cetrominobase cetromino, char grid[ROW][COL])
 {
     int x, y;
     for (int i = 0; i < 4; i++)

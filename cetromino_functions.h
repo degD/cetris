@@ -23,6 +23,6 @@ int is_at_edge(cetrominobase cetromino, char grid[ROW][COL]);
 
 int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW][COL]);
 
-void add_to_grid(cetrominobase cetromino, int grid[ROW][COL]);
+void add_to_grid(cetrominobase cetromino, char grid[ROW][COL]);
 
 #endif
