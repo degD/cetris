@@ -14,6 +14,7 @@ int main()
 	// Initialize the grid
 	char cetris_grid[ROW][COL];
 	initgrid(cetris_grid);
+
 	
 
 
