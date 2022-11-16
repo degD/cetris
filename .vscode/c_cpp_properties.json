@@ -1,0 +1,25 @@
+
+// Will compile for MSYS2 (Cygwin)
+{
+    "configurations": [
+        {
+            "name": "MSYS2",
+            "includePath": [
+                "C:/msys64/usr/include/"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:\\msys64\\usr\\bin\\gcc.exe",
+            "compilerArgs": [
+                "-lncurses"
+            ],
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

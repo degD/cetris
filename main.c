@@ -1,18 +1,25 @@
 
-#include "cetromino_functions.h"
+#include <ncurses.h>
+
 #include "grid.h"
 #include "gamedefinitions.h"
 
-int main(void)
-{
-    char garid[ROW][COL];
+int main()
+{	
+	// Init ncurses interface
+	initscr();
+	cbreak();
+	noecho();
+	
+	// Initialize the grid
+	char cetris_grid[ROW][COL];
+	initgrid(cetris_grid);
+	
 
-    initgrid(garid);
-    cetrominobase I = initcetromino('I');
-    add_to_grid(I, garid);
-    printgrid(garid);
 
-    return 0;
+
+
+
+	return 0;
 }
-
 

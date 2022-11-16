@@ -5,8 +5,6 @@
 #define TRUE 1
 #define FALSE 0
 
-
-
 cetrominobase initcetromino(char codename)
 {
     cetrominobase cetromino;
