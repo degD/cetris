@@ -1,4 +1,6 @@
 
+#include <ncurses.h>
+
 #include "gamedefinitions.h"
 
 #ifndef GRID_H
@@ -6,8 +8,10 @@
 
 void initgrid(char grid[ROW][COL]);
 
-int printcolorblock(int colorcode);
+int printcolorblock(WINDOW *gridwin, int colorcode);
 
-void printgrid(char _2darray[ROW][COL]);
+void printgrid(WINDOW *gridwin, char _2darray[ROW][COL]);
+
+void draw_gridborder(int gridy, int gridx);
 
 #endif

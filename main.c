@@ -18,8 +18,11 @@ int main()
 
 	// The game window
 	WINDOW *gridwin;
-	gridwin = newwin(ROW, COL, 0, 0); // height, width, starty, startx
-	box(gridwin, ' ', ' ');
+	gridwin = newwin(ROW-2, COL, 1, 2); // height, width, starty, startx
+	wborder(gridwin, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+
+	// Game window border
+	mvprintw(0, 0, "\e[%dm  \e[0m", colorcode);
 	
 
 	// The game loop

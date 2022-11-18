@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <ncurses.h>
 
 #include "gamedefinitions.h"
 
@@ -24,18 +25,16 @@ void initgrid(char grid[ROW][COL])
 }
 
 
-int printcolorblock(int colorcode)
+int printcolorblock(WINDOW *gridwin, int colorcode)
 {
-    int ret = printf("\e[%dm  \e[0m", colorcode);
+    int ret = wprintw(gridwin, "\e[%dm  \e[0m", colorcode);
     return ret;
 }
 
 
 // Print the grid and return to top-left corner of it.
-void printgrid(char _2darray[ROW][COL])
+void printgrid(WINDOW *gridwin, char _2darray[ROW][COL])
 {
-    
-
     char element;
     for (int y = 2; y < ROW; y++) {
         for (int x = 0; x < COL; x++) {
@@ -44,34 +43,65 @@ void printgrid(char _2darray[ROW][COL])
             switch (element)
             {
                 case 'I':
-                    printcolorblock(CYAN);
+                    printcolorblock(gridwin, CYAN);
                     break;
                 case 'J':
-                    printcolorblock(BLUE);
+                    printcolorblock(gridwin, BLUE);
                     break;
                 case 'L':
-                    printcolorblock(ORANGE);
+                    printcolorblock(gridwin, ORANGE);
                     break;
                 case 'O':
-                    printcolorblock(YELLOW);
+                    printcolorblock(gridwin, YELLOW);
                     break;         
                 case 'S':
-                    printcolorblock(GREEN);
+                    printcolorblock(gridwin, GREEN);
                     break; 
                 case 'T':
-                    printcolorblock(MAGENTA);
+                    printcolorblock(gridwin, MAGENTA);
                     break;
                 case 'Z':
-                    printcolorblock(RED);
+                    printcolorblock(gridwin, RED);
                     break; 
                 case EMPTYCHAR:
-                    printcolorblock(BLACK);
+                    printcolorblock(gridwin, BLACK);
                     break;
             }
 
         }
-        puts("");
+        wprintw(gridwin, "\n\r");
     }
     // Move the cursor ROW cells up. It's an ANSI escape sequence. 
     printf("\e[%dA", ROW);
+}
+
+
+void draw_gridborder(int gridy, int gridx)
+{
+    int bordery = gridy - 1;
+    int borderx = gridx - 2;
+
+    int hlen = (COL + 2);
+    int vlen = (ROW + 2);
+
+    // Printing upper and lower borders
+    move(0, 0);
+    for (int i = 0; i < hlen; i++) {
+        printcolorblock(stdscr, WHITE);
+    }
+    move(20, 0);
+    for (int i = 0; i < hlen; i++) {
+        printcolorblock(stdscr, WHITE);
+    }
+
+    // Printing horizontal borders
+    for (int i = 0; i < vlen; i++) {
+        move(i, 0);
+        printcolorblock(stdscr, WHITE);
+    }
+    for (int i = 0; i < vlen; i++) {
+        move(i, ROW*2-1);
+        printcolorblock(stdscr, WHITE);
+    }
+
 }
