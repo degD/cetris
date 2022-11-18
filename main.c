@@ -22,12 +22,21 @@ int main()
 	wborder(gridwin, ' ', ' ', ' ',' ',' ',' ',' ',' ');
 
 	// Game window border
-	mvprintw(0, 0, "\e[%dm  \e[0m", colorcode);
-	
+	draw_gridborder(1, 2);
 
 	// The game loop
 	do {
-		getch()
+		// Game window printing
+		printgrid(gridwin, cetris_grid);
+
+		char c = getch();
+		while (c != KEY_F(1))
+		{
+			switch (c)
+			{
+				case (KEY_LEFT):
+			}
+		}
 	}
 
 
