@@ -3,7 +3,7 @@
 #include "gamedefinitions.h"
 
 // Create cetris cetromino bag
-void init_cetris_bag(int cbag[7])
+void init_cetris_bag(char cbag[7])
 {
     int i, num;
     char selection = ' ';
@@ -19,4 +19,28 @@ void init_cetris_bag(int cbag[7])
         }
         while (selection == ' ');
     }
+}
+
+int is_bag_empty(char cbag[7])
+{
+    for (int i = 0; i < 7; i++)
+    {
+        if (cbag[i] != ' ') {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+char current_codename(char cbag[7])
+{
+    char c;
+    for (int i = 0; i < 7; i++)
+    {
+        if (cbag[i] != ' ') {
+            c = cbag[i];
+            return c;
+        }
+    }
+    return ' '
 }

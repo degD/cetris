@@ -4,6 +4,10 @@
 #ifndef BAG_H
 #define BAG_H
 
-void init_cetris_bag(int cbag[7]);
+void init_cetris_bag(char cbag[7]);
+
+int is_bag_empty(char cbag[7]);
+
+char current_codename(char cbag[7]);
 
 #endif
