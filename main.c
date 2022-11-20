@@ -39,7 +39,8 @@ int main()
 
 	// Creating timers. They will be used to calculate 
 	// time for the descend and to stop at bottom.
-	clock_t timer_start, timer_stop;
+	clock_t timer_start = clock();
+	clock_t timer_stop;
 	float time_passed; 
 
 	// The game loop
@@ -85,12 +86,14 @@ int main()
 					break;								
 			}
 
+			// Checking the time passed since the last descend
 			timer_stop = clock();
 			time_passed = ((float)(timer_start - timer_stop)) / CLOCKS_PER_SEC;
 
 			if (time_passed > 1) 
 			{
 				descendcetromino(curr_cetromino);
+				timer_start = clock();
 			} 
 			
 		}
