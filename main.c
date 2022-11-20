@@ -13,6 +13,7 @@ int main()
 	// Init ncurses interface
 	initscr();
 	cbreak();
+	timeout();
 	noecho();
 	
 	// Initialize the grid
@@ -37,16 +38,19 @@ int main()
 	// The game loop
 	do {
 
+		// The random cetromino bag
 		if (is_bag_empty == 1) {
 			init_cetris_bag(cetromino_bag);
 		}
 
+		// Init the current cetromino
 		codename = current_codename(cetromino_bag);
 		curr_cetromino = initcetromino(codename);
 
+		// Control loop.
 		while (isatbottom == FALSE)
 		{
-			char ckey = wgetch(gridwin);
+			char ckey = wgetch(gridwin, );
 			switch (ckey)
 			{
 				case (KEY_LEFT):
@@ -55,7 +59,19 @@ int main()
 				case (KEY_RIGHT):
 					move_cetromino(curr_cetromino, 1, cetris_grid);
 					break;
-				
+
+				case ('z'):
+					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					break;
+				case ('Z'):
+					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					break;					
+				case ('x'):
+					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					break;
+				case ('X'):
+					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					break;								
 			}
 		}
 	}
