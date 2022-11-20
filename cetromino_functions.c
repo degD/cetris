@@ -204,7 +204,7 @@ int is_cetromino_location_valid(cetrominobase cetromino, char grid[ROW][COL])
         x = cetromino.coords[i][0];
         y = cetromino.coords[i][1];
 
-        if (x < 0 || x >= COL)
+        if (x < 0 || x >= COL) // Is out of the grid?
         {
             return FALSE;
         }

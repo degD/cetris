@@ -50,7 +50,12 @@ int main()
 			switch (ckey)
 			{
 				case (KEY_LEFT):
-					
+					move_cetromino(curr_cetromino, -1, cetris_grid);
+					break;
+				case (KEY_RIGHT):
+					move_cetromino(curr_cetromino, 1, cetris_grid);
+					break;
+				
 			}
 		}
 	}
