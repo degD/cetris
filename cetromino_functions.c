@@ -12,6 +12,7 @@ cetrominobase initcetromino(char codename)
     {
         case 'I':
         {
+            // in x, y order 
             int coords[4][2] = {{3, 1}, {4, 1}, {5, 1}, {6, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
@@ -203,6 +204,10 @@ int is_cetromino_location_valid(cetrominobase cetromino, char grid[ROW][COL])
         x = cetromino.coords[i][0];
         y = cetromino.coords[i][1];
 
+        if (x < 0 || x >= COL)
+        {
+            return FALSE;
+        }
         if (isoccupied(x, y, grid))
         {
             return FALSE;
@@ -224,25 +229,6 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
         if (res == TRUE) {
             return TRUE;
         }
-    }
-    return FALSE;
-}
-
-
-int is_at_edge(cetrominobase cetromino, char grid[ROW][COL])
-{
-    int coordx, coordy, resl, resr;
-    for (int i = 0; i < 4; i++) {
-        coordx = cetromino.coords[i][0];
-        coordy = cetromino.coords[i][1];
-        
-        resl = isoccupied(coordx-1, coordy, grid); // Left edge
-        resr = isoccupied(coordx+1, coordy, grid); // Right edge
-
-        if (resl == TRUE || resr == TRUE) {
-            return TRUE;
-        }
-
     }
     return FALSE;
 }
@@ -372,5 +358,29 @@ void add_to_grid(cetrominobase cetromino, char grid[ROW][COL])
         x = cetromino.coords[i][0];
         y = cetromino.coords[i][1];
         grid[y][x] = cetromino.codename;
+    }
+}
+
+
+// 1 moves right and -1 moves to left. Returns FALSE if move is not possible and
+// TRUE otherwise.
+int move_cetromino(cetrominobase cetromino, int direction, char grid[ROW][COL])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        cetromino.coords[i][0] += direction;
+    }
+
+    if (is_cetromino_location_valid(cetromino, grid) == TRUE)
+    {
+        return TRUE;
+    }
+    else 
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            cetromino.coords[i][0] -= direction;
+        }
+        return FALSE;
     }
 }
