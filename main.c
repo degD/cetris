@@ -1,5 +1,6 @@
 
 #include <ncurses.h>
+#include <time.h>
 
 #include "cetrominobase.h"
 #include "cetromino_functions.h"
@@ -8,12 +9,12 @@
 #include "gamedefinitions.h"
 #include "bagfunc.h"
 
+
 int main()
 {	
 	// Init ncurses interface
 	initscr();
 	cbreak();
-	timeout();
 	noecho();
 	
 	// Initialize the grid
@@ -26,6 +27,7 @@ int main()
 	wborder(gridwin, ' ', ' ', ' ',' ',' ',' ',' ',' ');
 
 	keypad(gridwin, TRUE);
+	wtimeout(gridwin, 5);
 
 	// Game window border
 	draw_gridborder(1, 2);
@@ -34,6 +36,11 @@ int main()
 	char cetromino_bag[7] = {' ', ' ', ' ', ' ', ' ', ' ', ' '};
 	char codename;
 	cetrominobase curr_cetromino;
+
+	// Creating timers. They will be used to calculate 
+	// time for the descend and to stop at bottom.
+	clock_t timer_start, timer_stop;
+	float time_passed; 
 
 	// The game loop
 	do {
@@ -50,7 +57,11 @@ int main()
 		// Control loop.
 		while (isatbottom == FALSE)
 		{
-			char ckey = wgetch(gridwin, );
+			// Getting the current CPU time
+			timer_start = clock();
+
+			// Key control system
+			char ckey = wgetch(gridwin);
 			switch (ckey)
 			{
 				case (KEY_LEFT):
@@ -73,6 +84,15 @@ int main()
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
 					break;								
 			}
+
+			timer_stop = clock();
+			time_passed = ((float)(timer_start - timer_stop)) / CLOCKS_PER_SEC;
+
+			if (time_passed > 1) 
+			{
+				descendcetromino(curr_cetromino);
+			} 
+			
 		}
 	}
 
