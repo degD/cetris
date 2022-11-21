@@ -56,7 +56,7 @@ int main()
 		curr_cetromino = initcetromino(codename);
 
 		// Control loop.
-		while (isatbottom == FALSE)
+		while (isatbottom(curr_cetromino, cetris_grid) == FALSE)
 		{
 			// Getting the current CPU time
 			timer_start = clock();
@@ -95,8 +95,9 @@ int main()
 				descendcetromino(curr_cetromino);
 				timer_start = clock();
 			} 
-			
 		}
+
+		
 	}
 
 
