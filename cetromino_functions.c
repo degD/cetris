@@ -83,6 +83,7 @@ cetrominobase initcetromino(char codename)
         }
     }
     cetromino.rstate = 0;
+    cetromino.active = 1;
     return cetromino;
 }
 
