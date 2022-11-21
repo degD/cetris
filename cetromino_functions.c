@@ -1,4 +1,6 @@
 
+#include <ncurses.h>
+
 #include "gamedefinitions.h"
 #include "cetrominobase.h"
 
@@ -221,6 +223,8 @@ int is_cetromino_location_valid(cetrominobase cetromino, char grid[ROW][COL])
 int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
 {
     int coordx, coordy;
+
+    rm_from_grid(cetromino, grid);
     for (int i = 0; i < 4; i++) {
         coordx = cetromino.coords[i][0];
         coordy = cetromino.coords[i][1];
@@ -228,9 +232,11 @@ int isatbottom(cetrominobase cetromino, char grid[ROW][COL])
         int res = isoccupied(coordx, coordy+1, grid);
 
         if (res == TRUE) {
+            add_to_grid(cetromino, grid);
             return TRUE;
         }
     }
+    add_to_grid(cetromino, grid);
     return FALSE;
 }
 
@@ -363,6 +369,19 @@ void add_to_grid(cetrominobase cetromino, char grid[ROW][COL])
 }
 
 
+void rm_from_grid(cetrominobase cetromino, char grid[ROW][COL])
+{
+    int x, y;
+    for (int i = 0; i < 4; i++)
+    {
+        x = cetromino.coords[i][0];
+        y = cetromino.coords[i][1];
+        grid[y][x] = EMPTYCHAR;
+    }
+}
+
+
+
 // 1 moves right and -1 moves to left. Returns FALSE if move is not possible and
 // TRUE otherwise.
 int move_cetromino(cetrominobase cetromino, int direction, char grid[ROW][COL])
@@ -385,3 +404,5 @@ int move_cetromino(cetrominobase cetromino, int direction, char grid[ROW][COL])
         return FALSE;
     }
 }
+
+// TODO: Maybe use a print-refresh method? 

@@ -54,9 +54,10 @@ int main()
 		// Init the current cetromino
 		codename = current_codename(cetromino_bag);
 		curr_cetromino = initcetromino(codename);
+		add_to_grid(curr_cetromino, cetris_grid);
 
 		// Control loop.
-		while (isatbottom(curr_cetromino, cetris_grid) == FALSE)
+		while (curr_cetromino.active == 1)
 		{
 			// Getting the current CPU time
 			timer_start = clock();
@@ -66,23 +67,41 @@ int main()
 			switch (ckey)
 			{
 				case (KEY_LEFT):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					move_cetromino(curr_cetromino, -1, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;
 				case (KEY_RIGHT):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					move_cetromino(curr_cetromino, 1, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;
 
 				case ('z'):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;
 				case ('Z'):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;					
 				case ('x'):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;
 				case ('X'):
+					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
+					add_to_grid(curr_cetromino, cetris_grid);
+					wrefresh(gridwin);
 					break;								
 			}
 
@@ -90,21 +109,33 @@ int main()
 			timer_stop = clock();
 			time_passed = ((float)(timer_start - timer_stop)) / CLOCKS_PER_SEC;
 
-			if (time_passed > 1) 
+			if (isatbottom(curr_cetromino, cetris_grid) == TRUE)
 			{
+				if (time_passed > 0.5)
+				{
+					curr_cetromino.active = 0;
+				}
+			}
+			else if (time_passed > 1) 
+			{
+				rm_from_grid(curr_cetromino, cetris_grid);
 				descendcetromino(curr_cetromino);
+				add_to_grid(curr_cetromino, cetris_grid);
+				wrefresh(gridwin);
 				timer_start = clock();
 			} 
 		}
 
-		
+
+
+
 	}
 
 
 
 
 
-
+	endwin();
 	return 0;
 }
 
