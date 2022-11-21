@@ -42,5 +42,5 @@ char current_codename(char cbag[7])
             return c;
         }
     }
-    return ' '
+    return ' ';
 }

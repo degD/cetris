@@ -47,7 +47,7 @@ int main()
 	do {
 
 		// The random cetromino bag
-		if (is_bag_empty == 1) {
+		if (is_bag_empty(cetromino_bag) == 1) {
 			init_cetris_bag(cetromino_bag);
 		}
 
@@ -63,7 +63,7 @@ int main()
 			timer_start = clock();
 
 			// Key control system
-			char ckey = wgetch(gridwin);
+			int ckey = wgetch(gridwin);
 			switch (ckey)
 			{
 				case (KEY_LEFT):
@@ -125,15 +125,7 @@ int main()
 				timer_start = clock();
 			} 
 		}
-
-
-
-
-	}
-
-
-
-
+	} while(1);
 
 	endwin();
 	return 0;

@@ -89,6 +89,29 @@ cetrominobase initcetromino(char codename)
     return cetromino;
 }
 
+
+void add_to_grid(cetrominobase cetromino, char grid[ROW][COL])
+{
+    int x, y;
+    for (int i = 0; i < 4; i++)
+    {
+        x = cetromino.coords[i][0];
+        y = cetromino.coords[i][1];
+        grid[y][x] = cetromino.codename;
+    }
+}
+
+void rm_from_grid(cetrominobase cetromino, char grid[ROW][COL])
+{
+    int x, y;
+    for (int i = 0; i < 4; i++)
+    {
+        x = cetromino.coords[i][0];
+        y = cetromino.coords[i][1];
+        grid[y][x] = EMPTYCHAR;
+    }
+}
+
 // dir = 1 clockwise, -1 counter-clockwise
 void rotatecoord(float cx, float cy, float coord[2], int dir)
 {
@@ -356,29 +379,6 @@ int super_rotation_system(int direction, cetrominobase cetromino, char grid[ROW]
     return 1;
 }
 
-
-void add_to_grid(cetrominobase cetromino, char grid[ROW][COL])
-{
-    int x, y;
-    for (int i = 0; i < 4; i++)
-    {
-        x = cetromino.coords[i][0];
-        y = cetromino.coords[i][1];
-        grid[y][x] = cetromino.codename;
-    }
-}
-
-
-void rm_from_grid(cetrominobase cetromino, char grid[ROW][COL])
-{
-    int x, y;
-    for (int i = 0; i < 4; i++)
-    {
-        x = cetromino.coords[i][0];
-        y = cetromino.coords[i][1];
-        grid[y][x] = EMPTYCHAR;
-    }
-}
 
 
 

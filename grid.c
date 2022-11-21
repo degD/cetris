@@ -85,22 +85,22 @@ void draw_gridborder(int gridy, int gridx)
     int vlen = (ROW + 2);
 
     // Printing upper and lower borders
-    move(0, 0);
+    move(bordery, borderx);
     for (int i = 0; i < hlen; i++) {
         printcolorblock(stdscr, WHITE);
     }
-    move(20, 0);
+    move(bordery+ROW-2, borderx);
     for (int i = 0; i < hlen; i++) {
         printcolorblock(stdscr, WHITE);
     }
 
     // Printing horizontal borders
     for (int i = 0; i < vlen; i++) {
-        move(i, 0);
+        move(i, borderx);
         printcolorblock(stdscr, WHITE);
     }
     for (int i = 0; i < vlen; i++) {
-        move(i, ROW*2-1);
+        move(i, borderx+ROW*2-1);
         printcolorblock(stdscr, WHITE);
     }
 
