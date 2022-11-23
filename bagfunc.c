@@ -15,7 +15,7 @@ void init_cetris_bag(char cbag[7])
             num = rand() % 7;
             selection = cetromino_list[num];
             cetromino_list[num] = ' ';
-            cbag[num] = selection;
+            cbag[i] = selection;
         }
         while (selection == ' ');
     }
@@ -26,10 +26,10 @@ int is_bag_empty(char cbag[7])
     for (int i = 0; i < 7; i++)
     {
         if (cbag[i] != ' ') {
-            return 1;
+            return 0;
         }
     }
-    return 0;
+    return 1;
 }
 
 char current_codename(char cbag[7])
