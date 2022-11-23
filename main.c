@@ -18,15 +18,6 @@ int main()
 	cbreak();
 	noecho();
 
-	// Enable colors, if supported. Or exit.
-	if ((has_colors() == FALSE)) {
-		endwin();
-		puts("Your terminal doesn't support colors.");
-		return 1;
-	}
-	start_color();
-	init_game_colors();
-
 	// Set cursor invisible
 	curs_set(0);
 	

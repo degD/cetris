@@ -6,8 +6,6 @@
 #ifndef GRID_H
 #define GRID_H
 
-void init_game_colors(void);
-
 void initgrid(char grid[ROW][COL]);
 
 int printcolorblock(WINDOW *gridwin, int colorcode);

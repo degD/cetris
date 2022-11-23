@@ -14,24 +14,6 @@
 #define BLACK 40
 #define WHITE 47
 
-#define COLOR_ORANGE 8
-
-void init_game_colors(void) 
-{   
-    // Defining an "orange" color
-    init_color(COLOR_ORANGE, 252*1000/255, 166*1000/255, 67*1000/255);
-
-    init_pair(1, COLOR_BLACK, COLOR_CYAN);    // CYAN
-    init_pair(2, COLOR_BLACK, COLOR_BLUE);    // BLUE
-    init_pair(3, COLOR_ORANGE, COLOR_BLACK);  // ORANGE
-    init_pair(4, COLOR_BLACK, COLOR_YELLOW);  // YELLOW
-    init_pair(5, COLOR_BLACK, COLOR_GREEN);   // GREEN
-    init_pair(6, COLOR_BLACK, COLOR_MAGENTA); // MAGENTA
-    init_pair(7, COLOR_BLACK, COLOR_RED);     // RED
-    init_pair(8, COLOR_BLACK, COLOR_BLACK);   // BLACK
-    init_pair(9, COLOR_BLACK, COLOR_WHITE);   // WHITE
-}
-
 // Assumes grid is a ROWxCOL char-array
 void initgrid(char grid[ROW][COL])
 {  
