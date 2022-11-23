@@ -1,5 +1,6 @@
 
 #include <ncurses.h>
+#include <stdio.h>
 #include <time.h>
 
 #include "cetrominobase.h"
@@ -16,6 +17,18 @@ int main()
 	initscr();
 	cbreak();
 	noecho();
+
+	// Enable colors, if supported. Or exit.
+	if ((has_colors() == FALSE)) {
+		endwin();
+		puts("Your terminal doesn't support colors.");
+		return 1;
+	}
+	start_color();
+	init_game_colors();
+
+	// Set cursor invisible
+	curs_set(0);
 	
 	// Initialize the grid
 	char cetris_grid[ROW][COL];
@@ -23,14 +36,16 @@ int main()
 
 	// The game window
 	WINDOW *gridwin;
-	gridwin = newwin(ROW-2, COL, 1, 2); // height, width, starty, startx
+	gridwin = newwin(ROW-2, COL*2, 1, 2); // height, width, starty, startx
 	wborder(gridwin, ' ', ' ', ' ',' ',' ',' ',' ',' ');
 
 	keypad(gridwin, TRUE);
 	wtimeout(gridwin, 5);
 
 	// Game window border
-	draw_gridborder(1, 2);
+	// draw_gridborder(1, 2);
+	box(gridwin, 0, 0);
+	wrefresh(gridwin);
 
 	// Cetromino bag
 	char cetromino_bag[7] = {' ', ' ', ' ', ' ', ' ', ' ', ' '};
@@ -56,12 +71,13 @@ int main()
 		curr_cetromino = initcetromino(codename);
 		add_to_grid(curr_cetromino, cetris_grid);
 
+		// Getting the current CPU time
+		timer_start = clock();
+
 		// Control loop.
 		while (curr_cetromino.active == 1)
 		{
-			// Getting the current CPU time
-			timer_start = clock();
-
+			
 			// Key control system
 			int ckey = wgetch(gridwin);
 			switch (ckey)
@@ -70,12 +86,14 @@ int main()
 					rm_from_grid(curr_cetromino, cetris_grid);
 					move_cetromino(curr_cetromino, -1, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case (KEY_RIGHT):
 					rm_from_grid(curr_cetromino, cetris_grid);
 					move_cetromino(curr_cetromino, 1, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 
@@ -83,24 +101,28 @@ int main()
 					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case ('Z'):
 					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;					
 				case ('x'):
 					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case ('X'):
 					rm_from_grid(curr_cetromino, cetris_grid);
 					super_rotation_system(-1, curr_cetromino, cetris_grid);
 					add_to_grid(curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;								
 			}
@@ -121,6 +143,7 @@ int main()
 				rm_from_grid(curr_cetromino, cetris_grid);
 				descendcetromino(curr_cetromino);
 				add_to_grid(curr_cetromino, cetris_grid);
+				printgrid(gridwin, cetris_grid);
 				wrefresh(gridwin);
 				timer_start = clock();
 			} 
