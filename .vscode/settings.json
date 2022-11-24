@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "cetromino_functions.h": "c"
+        "cetromino_functions.h": "c",
+        "cetrominobase.h": "c"
     }
 }
