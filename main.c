@@ -45,9 +45,9 @@ int main()
 
 	// Creating timers. They will be used to calculate 
 	// time for the descend and to stop at bottom.
-	clock_t timer_start = clock();
-	clock_t timer_stop;
-	float time_passed; 
+	struct timespec tp;
+	clock_gettime(CLOCK_MONOTONIC, &tp);
+	
 
 	// The game loop
 	do {
@@ -63,7 +63,8 @@ int main()
 		add_to_grid(curr_cetromino, cetris_grid);
 
 		// Getting the current CPU time
-		timer_start = clock();
+		gettimeofday(&tv, NULL);
+		start_usec = sys
 
 		// Control loop.
 		while (curr_cetromino.active == 1)
@@ -120,7 +121,7 @@ int main()
 
 			// Checking the time passed since the last descend
 			timer_stop = clock();
-			time_passed = ((float)(timer_start - timer_stop)) / CLOCKS_PER_SEC;
+			time_passed = ((float)(timer_start - timer_stop)) / 1000000;
 
 			if (isatbottom(curr_cetromino, cetris_grid) == TRUE)
 			{

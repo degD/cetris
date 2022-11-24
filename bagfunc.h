@@ -1,6 +1,4 @@
 
-#include "gamedefinitions.h"
-
 #ifndef BAG_H
 #define BAG_H
 
