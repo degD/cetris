@@ -25,10 +25,10 @@ void initgrid(char grid[ROW][COL])
 }
 
 
-int printcolorblock(WINDOW *gridwin, int colorcode)
+void print_block(WINDOW *gridwin, char c)
 {
-    int ret = wprintw(gridwin, "  ");
-    return ret;
+    waddch(gridwin, c);
+    waddch(gridwin, c);
 }
 
 
@@ -40,34 +40,12 @@ void printgrid(WINDOW *gridwin, char _2darray[ROW][COL])
         for (int x = 0; x < COL; x++) {
             element = _2darray[y][x];
             
-            switch (element)
-            {
-                case 'I':
-                    printcolorblock(gridwin, CYAN);
-                    break;
-                case 'J':
-                    printcolorblock(gridwin, BLUE);
-                    break;
-                case 'L':
-                    printcolorblock(gridwin, ORANGE);
-                    break;
-                case 'O':
-                    printcolorblock(gridwin, YELLOW);
-                    break;         
-                case 'S':
-                    printcolorblock(gridwin, GREEN);
-                    break; 
-                case 'T':
-                    printcolorblock(gridwin, MAGENTA);
-                    break;
-                case 'Z':
-                    printcolorblock(gridwin, RED);
-                    break; 
-                case EMPTYCHAR:
-                    printcolorblock(gridwin, BLACK);
-                    break;
+            if (element == EMPTYCHAR) {
+                print_block(gridwin, '.');
+            } 
+            else {
+                print_block(gridwin, element);
             }
-
         }
     }
     wmove(gridwin, 0, 0);
@@ -85,21 +63,21 @@ void draw_gridborder(int gridy, int gridx)
     // Printing upper and lower borders
     move(bordery, borderx);
     for (int i = 0; i < hlen; i++) {
-        printcolorblock(stdscr, WHITE);
+        print_block(stdscr, 'X');
     }
     move(bordery+ROW-2, borderx);
     for (int i = 0; i < hlen; i++) {
-        printcolorblock(stdscr, WHITE);
+        print_block(stdscr, 'X');
     }
 
     // Printing horizontal borders
     for (int i = 0; i < vlen; i++) {
         move(i, borderx);
-        printcolorblock(stdscr, WHITE);
+        print_block(stdscr, 'X');
     }
     for (int i = 0; i < vlen; i++) {
         move(i, borderx+ROW*2-1);
-        printcolorblock(stdscr, WHITE);
+        print_block(stdscr, 'X');
     }
 
 }

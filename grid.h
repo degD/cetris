@@ -8,7 +8,7 @@
 
 void initgrid(char grid[ROW][COL]);
 
-int printcolorblock(WINDOW *gridwin, int colorcode);
+int print_block(WINDOW *gridwin, int colorcode);
 
 void printgrid(WINDOW *gridwin, char _2darray[ROW][COL]);
 
