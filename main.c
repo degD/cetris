@@ -10,6 +10,7 @@
 #include "gamedefinitions.h"
 #include "bagfunc.h"
 
+#include "time_manage.h"
 
 int main()
 {	
@@ -45,9 +46,8 @@ int main()
 
 	// Creating timers. They will be used to calculate 
 	// time for the descend and to stop at bottom.
-	struct timespec tp;
-	clock_gettime(CLOCK_MONOTONIC, &tp);
-	
+	struct timespec tpstart, tpstop;
+	int passed_time_in_ms;
 
 	// The game loop
 	do {
@@ -62,9 +62,8 @@ int main()
 		curr_cetromino = initcetromino(codename);
 		add_to_grid(curr_cetromino, cetris_grid);
 
-		// Getting the current CPU time
-		gettimeofday(&tv, NULL);
-		start_usec = sys
+		// Getting the current time
+		clock_gettime(CLOCK_MONOTONIC, &tpstart);
 
 		// Control loop.
 		while (curr_cetromino.active == 1)
@@ -120,24 +119,24 @@ int main()
 			}
 
 			// Checking the time passed since the last descend
-			timer_stop = clock();
-			time_passed = ((float)(timer_start - timer_stop)) / 1000000;
+			clock_gettime(CLOCK_MONOTONIC, &tpstop);
+			passed_time_in_ms = ms_passed(tpstart, tpstop);
 
 			if (isatbottom(curr_cetromino, cetris_grid) == TRUE)
 			{
-				if (time_passed > 0.5)
+				if (passed_time_in_ms > 0.5)
 				{
 					curr_cetromino.active = 0;
 				}
 			}
-			else if (time_passed > 1) 
+			else if (passed_time_in_ms > 1) 
 			{
 				rm_from_grid(curr_cetromino, cetris_grid);
 				descendcetromino(curr_cetromino);
 				add_to_grid(curr_cetromino, cetris_grid);
 				printgrid(gridwin, cetris_grid);
 				wrefresh(gridwin);
-				timer_start = clock();
+				clock_gettime(CLOCK_MONOTONIC, &tpstart);
 			} 
 		}
 	} while(1);
