@@ -1,4 +1,6 @@
 
+#include <time.h>
+
 #ifndef TIME_MANAGE_H
 #define TIME_MANAGE_H
 

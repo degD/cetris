@@ -124,12 +124,12 @@ int main()
 
 			if (isatbottom(curr_cetromino, cetris_grid) == TRUE)
 			{
-				if (passed_time_in_ms > 0.5)
+				if (passed_time_in_ms > 500)
 				{
 					curr_cetromino.active = 0;
 				}
 			}
-			else if (passed_time_in_ms > 1) 
+			else if (passed_time_in_ms > 1000) 
 			{
 				rm_from_grid(curr_cetromino, cetris_grid);
 				descendcetromino(curr_cetromino);
