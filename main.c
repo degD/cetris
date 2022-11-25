@@ -60,7 +60,7 @@ int main()
 		// Init the current cetromino
 		codename = current_codename(cetromino_bag);
 		curr_cetromino = initcetromino(codename);
-		add_to_grid(curr_cetromino, cetris_grid);
+		add_to_grid(&curr_cetromino, cetris_grid);
 
 		// Getting the current time
 		clock_gettime(CLOCK_MONOTONIC, &tpstart);
@@ -74,45 +74,45 @@ int main()
 			switch (ckey)
 			{
 				case (KEY_LEFT):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					move_cetromino(curr_cetromino, -1, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					move_cetromino(&curr_cetromino, -1, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case (KEY_RIGHT):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					move_cetromino(curr_cetromino, 1, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					move_cetromino(&curr_cetromino, 1, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 
 				case ('z'):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					super_rotation_system(-1, curr_cetromino, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case ('Z'):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					super_rotation_system(-1, curr_cetromino, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;					
 				case ('x'):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					super_rotation_system(-1, curr_cetromino, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case ('X'):
-					rm_from_grid(curr_cetromino, cetris_grid);
-					super_rotation_system(-1, curr_cetromino, cetris_grid);
-					add_to_grid(curr_cetromino, cetris_grid);
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;								
@@ -122,7 +122,7 @@ int main()
 			clock_gettime(CLOCK_MONOTONIC, &tpstop);
 			passed_time_in_ms = ms_passed(tpstart, tpstop);
 
-			if (isatbottom(curr_cetromino, cetris_grid) == TRUE)
+			if (isatbottom(&curr_cetromino, cetris_grid) == TRUE)
 			{
 				if (passed_time_in_ms > 500)
 				{
@@ -131,9 +131,9 @@ int main()
 			}
 			else if (passed_time_in_ms > 1000) 
 			{
-				rm_from_grid(curr_cetromino, cetris_grid);
-				descendcetromino(curr_cetromino);
-				add_to_grid(curr_cetromino, cetris_grid);
+				rm_from_grid(&curr_cetromino, cetris_grid);
+				descendcetromino(&curr_cetromino);
+				add_to_grid(&curr_cetromino, cetris_grid);
 				printgrid(gridwin, cetris_grid);
 				wrefresh(gridwin);
 				clock_gettime(CLOCK_MONOTONIC, &tpstart);
