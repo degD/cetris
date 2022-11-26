@@ -43,6 +43,7 @@ char current_codename(char cbag[7])
     {
         if (cbag[i] != ' ') {
             c = cbag[i];
+            cbag[i] = ' ';
             return c;
         }
     }

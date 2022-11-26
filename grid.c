@@ -41,7 +41,7 @@ void printgrid(WINDOW *gridwin, char _2darray[ROW][COL])
             element = _2darray[y][x];
             
             if (element == EMPTYCHAR) {
-                print_block(gridwin, '.');
+                print_block(gridwin, ' ');
             } 
             else {
                 print_block(gridwin, element);
@@ -57,27 +57,21 @@ void draw_gridborder(int gridy, int gridx)
     int bordery = gridy - 1;
     int borderx = gridx - 2;
 
-    int hlen = (COL + 2);
-    int vlen = (ROW + 2);
+    attron(A_DIM);
 
-    // Printing upper and lower borders
-    move(bordery, borderx);
-    for (int i = 0; i < hlen; i++) {
-        print_block(stdscr, 'X');
-    }
-    move(bordery+ROW-2, borderx);
-    for (int i = 0; i < hlen; i++) {
-        print_block(stdscr, 'X');
-    }
+    // Top border
+    mvwhline(stdscr, bordery, borderx, 'X', (COL+2)*2);
 
-    // Printing horizontal borders
-    for (int i = 0; i < vlen; i++) {
-        move(i, borderx);
-        print_block(stdscr, 'X');
-    }
-    for (int i = 0; i < vlen; i++) {
-        move(i, borderx+ROW*2-1);
-        print_block(stdscr, 'X');
-    }
+    // Left border
+    mvwvline(stdscr, bordery+1, borderx, 'X', ROW-1);
+    mvwvline(stdscr, bordery+1, borderx+1, 'X', ROW-1);
 
+    // Right border
+    mvwvline(stdscr, bordery+1, (borderx+COL+1)*2, 'X', ROW-1);
+    mvwvline(stdscr, bordery+1, (borderx+COL+1)*2+1, 'X', ROW-1); 
+
+    // Bottom border
+    mvwhline(stdscr, bordery+ROW-1, borderx, 'X', (COL+2)*2);
+
+    attroff(A_DIM);
 }

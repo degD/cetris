@@ -32,12 +32,11 @@ int main()
 	wborder(gridwin, ' ', ' ', ' ',' ',' ',' ',' ',' ');
 
 	keypad(gridwin, TRUE);
-	wtimeout(gridwin, 5);
+	wtimeout(gridwin, 1);
 
 	// Game window border
-	// draw_gridborder(1, 2);
-	box(gridwin, 0, 0);
-	wrefresh(gridwin);
+	draw_gridborder(1, 2);
+	wrefresh(stdscr);
 
 	// Cetromino bag
 	char cetromino_bag[7] = {' ', ' ', ' ', ' ', ' ', ' ', ' '};
@@ -60,7 +59,6 @@ int main()
 		// Init the current cetromino
 		codename = current_codename(cetromino_bag);
 		curr_cetromino = initcetromino(codename);
-		add_to_grid(&curr_cetromino, cetris_grid);
 
 		// Getting the current time
 		clock_gettime(CLOCK_MONOTONIC, &tpstart);
@@ -104,14 +102,14 @@ int main()
 					break;					
 				case ('x'):
 					rm_from_grid(&curr_cetromino, cetris_grid);
-					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					super_rotation_system(1, &curr_cetromino, cetris_grid);
 					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
 				case ('X'):
 					rm_from_grid(&curr_cetromino, cetris_grid);
-					super_rotation_system(-1, &curr_cetromino, cetris_grid);
+					super_rotation_system(1, &curr_cetromino, cetris_grid);
 					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);

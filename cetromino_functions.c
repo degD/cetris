@@ -30,7 +30,7 @@ cetrominobase initcetromino(char codename)
         }
         case 'J':
         {
-            int coords[4][2] = {{3, 0}, {3, 1}, {4, 1}, {4, 2}};
+            int coords[4][2] = {{3, 0}, {3, 1}, {4, 1}, {5, 1}};
             for (int i = 0; i < 4; ++i) {
                 cetromino.coords[i][0] = coords[i][0];
                 cetromino.coords[i][1] = coords[i][1];
@@ -194,10 +194,10 @@ void rotatecetromino(int direction, cetrominobase *cetromino)
         cetromino->coords[i][1] = (int)coord[1];               
     }
 
-    if (direction == 1) {
+    if (direction == -1) {
         cetromino->rstate += 1;
     }
-    if (direction == -1) {
+    if (direction == 1) {
         cetromino->rstate += 3;
     }
     if (cetromino->rstate == 4) {
@@ -409,5 +409,3 @@ int move_cetromino(cetrominobase *cetromino, int direction, char grid[ROW][COL])
         return FALSE;
     }
 }
-
-// TODO: Maybe use a print-refresh method? 
