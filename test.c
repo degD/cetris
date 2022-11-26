@@ -5,7 +5,7 @@
 int main()
 {
     cetrominobase cetro;
-    cetro = initcetromino('L');
+    cetro = initcetromino('I');
 
     rotatecetromino(1, &cetro);
 

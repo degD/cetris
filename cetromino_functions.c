@@ -120,16 +120,16 @@ void rm_from_grid(cetrominobase *cetromino, char grid[ROW][COL])
 // dir = 1 clockwise, -1 counter-clockwise
 void rotatecoord(float cx, float cy, float coord[2], int dir)
 {
-    int x = coord[0], y = coord[1];
+    float x = coord[0], y = coord[1];
 
     x = x - cx;
     y = y - cy;
 
-    if (dir == 1) {
+    if (dir == -1) {
         coord[0] = y;
         coord[1] = -x;
     }
-    if (dir == -1) {
+    if (dir == 1) {
         coord[0] = -y;
         coord[1] = x;
     }
