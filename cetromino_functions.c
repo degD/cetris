@@ -191,7 +191,7 @@ void rotatecetromino(int direction, cetrominobase *cetromino)
         rotatecoord(centerx, centery, coord, direction);
 
         cetromino->coords[i][0] = (int)coord[0];
-        cetromino->coords[i][1] = (int)coord[0];               
+        cetromino->coords[i][1] = (int)coord[1];               
     }
 
     if (direction == 1) {
