@@ -230,12 +230,12 @@ int isoccupied(int x, int y, char grid[ROW][COL])
 int is_cetromino_location_valid(cetrominobase *cetromino, char grid[ROW][COL])
 {
     int x, y;
-    for (int i = 4; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         x = cetromino->coords[i][0];
         y = cetromino->coords[i][1];
 
-        if (x < 0 || x >= COL) // Is out of the grid?
+        if ((x < 0) || (x >= COL)) // Is out of the grid?
         {
             return FALSE;
         }
