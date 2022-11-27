@@ -123,18 +123,27 @@ int main()
 					break;
 
 				case ('c'):
-					rm_from_grid(&curr_cetromino, cetris_grid);
 					while (isatbottom(&curr_cetromino, cetris_grid) == FALSE)
 					{
-						int k = move_cetromino_down(&curr_cetromino, cetris_grid);
-						printw("{%d,%d}%d\n", curr_cetromino.coords[0][0], curr_cetromino.coords[0][1], k);
-						refresh();
-						sleep(1);
+						rm_from_grid(&curr_cetromino, cetris_grid);
+						move_cetromino_down(&curr_cetromino, cetris_grid);
+						add_to_grid(&curr_cetromino, cetris_grid);
 					}
 					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
-					break;											
+					break;		
+				case ('C'):
+					while (isatbottom(&curr_cetromino, cetris_grid) == FALSE)
+					{
+						rm_from_grid(&curr_cetromino, cetris_grid);
+						move_cetromino_down(&curr_cetromino, cetris_grid);
+						add_to_grid(&curr_cetromino, cetris_grid);
+					}
+					add_to_grid(&curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
+					wrefresh(gridwin);
+					break;								
 			}
 
 			// Checking the time passed since the last descend

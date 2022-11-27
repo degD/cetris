@@ -229,7 +229,7 @@ int is_cetromino_location_valid(cetrominobase *cetromino, char grid[ROW][COL])
         {
             return FALSE;
         }
-        if (isoccupied(x, y, grid))
+        if (isoccupied(x, y, grid) == TRUE)
         {
             return FALSE;
         }
