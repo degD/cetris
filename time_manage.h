@@ -6,4 +6,6 @@
 
 int ms_passed(struct timespec start, struct timespec stop);
 
+void waitms(int ms);
+
 #endif

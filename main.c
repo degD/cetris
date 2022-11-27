@@ -26,6 +26,12 @@ int main()
 	char cetris_grid[ROW][COL];
 	initgrid(cetris_grid);
 
+	// Test color capabilities
+	if (has_colors() == TRUE) 
+	{
+		start_color();
+	}
+
 	// The game window
 	WINDOW *gridwin;
 	gridwin = newwin(ROW-2, COL*2, 1, 2); // height, width, starty, startx
@@ -50,6 +56,7 @@ int main()
 
 	// The game loop
 	do {
+		test_clear_line(cetris_grid);
 
 		// The random cetromino bag
 		if (is_bag_empty(cetromino_bag) == 1) {
@@ -155,6 +162,8 @@ int main()
 				if (passed_time_in_ms > 500)
 				{
 					curr_cetromino.active = 0;
+					waitms(500);
+					flushinp();
 				}
 			}
 			else if (passed_time_in_ms > 1000) 

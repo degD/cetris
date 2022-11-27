@@ -14,4 +14,6 @@ void printgrid(WINDOW *gridwin, char _2darray[ROW][COL]);
 
 void draw_gridborder(int gridy, int gridx);
 
+void test_clear_line(char grid[ROW][COL]);
+
 #endif
