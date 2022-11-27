@@ -206,16 +206,6 @@ void rotatecetromino(int direction, cetrominobase *cetromino)
 }
 
 
-void descendcetromino(cetrominobase *cetromino)
-{   
-    int coordy;
-    for (int i = 0; i < 4; i++) {
-        coordy = cetromino->coords[i][1];
-        cetromino->coords[i][1] = ++coordy;
-    }
-}
-
-
 // 0 is FALSE and 1 is TRUE
 int isoccupied(int x, int y, char grid[ROW][COL])
 {
@@ -405,6 +395,28 @@ int move_cetromino(cetrominobase *cetromino, int direction, char grid[ROW][COL])
         for (int i = 0; i < 4; i++)
         {
             cetromino->coords[i][0] -= direction;
+        }
+        return FALSE;
+    }
+}
+
+
+int move_cetromino_down(cetrominobase *cetromino, char grid[ROW][COL])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        cetromino->coords[i][1] += 1;
+    }
+
+    if (is_cetromino_location_valid(cetromino, grid) == TRUE)
+    {
+        return TRUE;
+    }
+    else 
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            cetromino->coords[i][1] -= 1;
         }
         return FALSE;
     }

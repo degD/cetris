@@ -85,6 +85,13 @@ int main()
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
 					break;
+				case (KEY_DOWN):
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					move_cetromino_down(&curr_cetromino, cetris_grid);
+					add_to_grid(&curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
+					wrefresh(gridwin);
+					break;
 
 				case ('z'):
 					rm_from_grid(&curr_cetromino, cetris_grid);
@@ -113,7 +120,21 @@ int main()
 					add_to_grid(&curr_cetromino, cetris_grid);
 					printgrid(gridwin, cetris_grid);
 					wrefresh(gridwin);
-					break;								
+					break;
+
+				case ('c'):
+					rm_from_grid(&curr_cetromino, cetris_grid);
+					while (isatbottom(&curr_cetromino, cetris_grid) == FALSE)
+					{
+						int k = move_cetromino_down(&curr_cetromino, cetris_grid);
+						printw("{%d,%d}%d\n", curr_cetromino.coords[0][0], curr_cetromino.coords[0][1], k);
+						refresh();
+						sleep(1);
+					}
+					add_to_grid(&curr_cetromino, cetris_grid);
+					printgrid(gridwin, cetris_grid);
+					wrefresh(gridwin);
+					break;											
 			}
 
 			// Checking the time passed since the last descend
@@ -130,7 +151,7 @@ int main()
 			else if (passed_time_in_ms > 1000) 
 			{
 				rm_from_grid(&curr_cetromino, cetris_grid);
-				descendcetromino(&curr_cetromino);
+				move_cetromino_down(&curr_cetromino, cetris_grid);
 				add_to_grid(&curr_cetromino, cetris_grid);
 				printgrid(gridwin, cetris_grid);
 				wrefresh(gridwin);
