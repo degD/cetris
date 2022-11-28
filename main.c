@@ -1,4 +1,7 @@
 
+// Build with 
+// gcc -Wall -g main.c bagfunc.c cetromino_functions.c grid.c time_manage.c -o main.exe -lncurses
+
 #include <ncurses.h>
 #include <stdio.h>
 #include <time.h>
