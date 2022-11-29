@@ -14,6 +14,7 @@
 #include "bagfunc.h"
 
 #include "time_manage.h"
+#include "color_management.h"
 
 int main()
 {	
@@ -33,6 +34,7 @@ int main()
 	if (has_colors() == TRUE) 
 	{
 		start_color();
+		init_color_pairs();
 	}
 
 	// The game window
@@ -96,6 +98,7 @@ int main()
 					wrefresh(gridwin);
 					break;
 				case (KEY_DOWN):
+					clock_gettime(CLOCK_MONOTONIC, &tpstart);
 					rm_from_grid(&curr_cetromino, cetris_grid);
 					move_cetromino_down(&curr_cetromino, cetris_grid);
 					add_to_grid(&curr_cetromino, cetris_grid);
@@ -162,14 +165,14 @@ int main()
 
 			if (isatbottom(&curr_cetromino, cetris_grid) == TRUE)
 			{
-				if (passed_time_in_ms > 500)
+				if (passed_time_in_ms > 400)
 				{
 					curr_cetromino.active = 0;
-					waitms(500);
+					waitms(400);
 					flushinp();
 				}
 			}
-			else if (passed_time_in_ms > 1000) 
+			else if (passed_time_in_ms > 800) 
 			{
 				rm_from_grid(&curr_cetromino, cetris_grid);
 				move_cetromino_down(&curr_cetromino, cetris_grid);

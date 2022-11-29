@@ -4,6 +4,6 @@
 
 #define ROW 22
 #define COL 10
-#define EMPTYCHAR '.'
+#define EMPTYCHAR ' '
 
 #endif
