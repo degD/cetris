@@ -105,7 +105,7 @@ void draw_gridborder(int gridy, int gridx)
 // and descend all the blocks above.
 void test_clear_line(char grid[ROW][COL])
 {
-    int x, y, line_filled;
+    int x, y, k, line_filled;
     for (y = ROW-1; y > -1; y--)
     {
         // Looking for available lines.
@@ -126,10 +126,15 @@ void test_clear_line(char grid[ROW][COL])
             for (x = 0; x < COL; x++)
                 grid[y][x] = EMPTYCHAR;
 
-            // Then descends every block by one.
-            for (y = ROW-2; y > -1; y--)
+            // Then descends every block above by one.
+            for (k = y-1; k > -1; k--)
+            {
                 for (x = 0; x < COL; x++)
-                    grid[y+1][x] = grid[y][x];
+                {
+                    grid[k+1][x] = grid[k][x];
+                    grid[k][x] = EMPTYCHAR;
+                }
+            }
 
             // Because all the grid got moved down by a block,
             // We also move down y.
